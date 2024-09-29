@@ -206,8 +206,7 @@ async function fetchData() {
       );
       cardCounts[member][status] += 1; //Ups by "1" on the "in progress" or "done"
     });
-    let i = 0; //Initialice an "i" var for loop porpuses
-    Object.entries(cardCounts).forEach(([key, value]) => {
+    Object.entries(cardCounts).forEach(([key, value], index) => {
       /*Make "cardCounts" an array for making the loop part easy. Then loop around it*/
       lunaChannel.send(
         //This is what Luna will send
@@ -216,14 +215,13 @@ async function fetchData() {
           Make "esotericTeam" an array for calling the index with the loop. 
           [1] is for taking the value of the previous object, not the key part
           */
-          Object.entries(esotericTeam)[i][1] +
+          Object.entries(esotericTeam)[index][1] +
           "> tiene " +
           value.inProgress +
           " tarjetas en progreso y " +
           value.done +
           " tarjetas listas"
       );
-      i++; //Up the "i" var by 1
     });
     //TODO: Luna DSU messages & Total cards done this week
   } catch (e) {
