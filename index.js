@@ -12,6 +12,83 @@ const client = new Client({
   ],
 });
 const fs = require("fs");
+const http = require("http"); //We need to create an endpoint, so we're creating a "server"
+
+const githubDictionary = {
+  //Nothing to see here :)
+  edited: "Recibió una edición",
+  closed: "Fue cerrado. (¿Seguro que esta todo bien?)",
+  reopened: "Fue reabierto. (Al parecer no estaba todo bien)",
+  assigned: "Fue asignado a una persona",
+  unassigned: "No requiere más la revisión de una persona",
+  review_requested: "Requiere la revisión de un superior",
+  synchronize: "Recibió cambios nuevos!",
+  approved:
+    "✅Fue Aprobado, felicidades! No olvides mover tu tarjeta a listo al mergear :)",
+  changes_requested:
+    "❌Fue Desaprobado, se volverá a revisar al hacer los cambios",
+  submitted: "💬 Tiene nuevos comentarios",
+};
+
+const temporalServer = http.createServer((req, res) => {
+  //The server itself
+  if (req.method === "POST" && req.url === "/github-webhook") {
+    //Check if the endpoint is the correct one
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+
+    req.on("end", async () => {
+      const webhookEvent = JSON.parse(body); //JSONify the data
+      const eventType = req.headers["x-github-event"];
+      if (eventType === "pull_request" || eventType === "pull_request_review") {
+        const action = webhookEvent.action; //Action performed
+        const prTitle = webhookEvent.pull_request.title; //Title of PR
+        const prUrl = webhookEvent.pull_request.html_url; //URL of PR
+        let currentThread; //Declared var for using on scope
+        let messageToSend; //Declared var for using on scope
+        if (action === "opened") {
+          //Here Luna creates the thread if a new PR got opened
+          await lunaChannel.send(
+            `LES TRAIGO DATA DE QUE SE ABRIÓ UN NUEVO PR: ${prTitle} - ${prUrl}`
+          );
+          await lunaChannel.threads.create({
+            name: prTitle,
+            autoArchiveDuration: 60,
+          });
+        } else {
+          currentThread = lunaChannel.threads.cache.find(
+            //Look for the PR thread and store in a variable
+            (title) => title.name === prTitle
+          );
+          messageToSend = Object.entries(githubDictionary).find(
+            //Transform the dictionary on an array for iterating it. Then pick the value
+            ([key]) => key === action
+          )?.[1];
+          currentThread.send(
+            //Message itself
+            "ACTUALIZACIÓN! El PR actual " +
+              messageToSend +
+              ". Readjunto la URL: " +
+              prUrl
+          );
+        }
+      }
+
+      res.writeHead(200, { "Content-Type": "text/plain" }); //HTTP protocols
+      res.end("Webhook recibido");
+    });
+  } else {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("No encontrado");
+  }
+});
+
+temporalServer.listen(3000, () => {
+  //Start the server
+  console.log("Servidor HTTP escuchando en el puerto 3000");
+});
 
 const meses = [
   "enero",
