@@ -4,6 +4,11 @@
     "mes": "septiembre",
     "hora": 3,
     "minuto": 57,
-    "amPm": "pm"
+    "amPm": "pm",
+    "introMessage": "",
+    "firstQuestion": "",
+    "secondQuestion": "",
+    "thirdQuestion": "",
+    "outroMessage": ""
   }
 ]

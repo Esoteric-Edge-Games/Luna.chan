@@ -16,18 +16,22 @@ const http = require("http"); //We need to create an endpoint, so we're creating
 
 const githubDictionary = {
   //Nothing to see here :)
-  edited: "Recibió una edición",
-  closed: "Fue cerrado. (¿Seguro que esta todo bien?)",
-  reopened: "Fue reabierto. (Al parecer no estaba todo bien)",
-  assigned: "Fue asignado a una persona",
-  unassigned: "No requiere más la revisión de una persona",
-  review_requested: "Requiere la revisión de un superior",
-  synchronize: "Recibió cambios nuevos!",
+  edited: "✏️ Recibió una edición",
+  closed: "🔒 Fue cerrado. (¿Seguro que está todo bien?)",
+  reopened: "🔓 Fue reabierto. (Al parecer no estaba todo bien)",
+  assigned: "👤 Fue asignado a una persona",
+  unassigned: "🙅‍♂️ Ya no requiere la revisión de una persona",
+  review_requested: "🔍 Requiere la revisión de un superior",
+  synchronize: "🔄 ¡Recibió cambios nuevos!",
+  submitted: "📄 Recibió una review:",
+};
+
+const githubDictionaryPullRequestReview = {
   approved:
-    "✅Fue Aprobado, felicidades! No olvides mover tu tarjeta a listo al mergear :)",
+    "✅ ¡Fue aprobado, felicidades! 🎉 No olvides mover tu tarjeta a 'listo' al mergear 🚀",
   changes_requested:
-    "❌Fue Desaprobado, se volverá a revisar al hacer los cambios",
-  submitted: "💬 Tiene nuevos comentarios",
+    "❌ Fue desaprobado. 🔧 Se volverá a revisar una vez hechos los cambios",
+  commented: "💬 Hay nuevos comentarios en la review",
 };
 
 const temporalServer = http.createServer((req, res) => {
@@ -66,6 +70,10 @@ const temporalServer = http.createServer((req, res) => {
             //Transform the dictionary on an array for iterating it. Then pick the value
             ([key]) => key === action
           )?.[1];
+          messageToSend =
+            messageToSend +
+            " " +
+            githubDictionaryPullRequestReview[webhookEvent.review.state];
           currentThread.send(
             //Message itself
             "ACTUALIZACIÓN! El PR actual " +
