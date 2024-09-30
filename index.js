@@ -13,6 +13,7 @@ const client = new Client({
 });
 const fs = require("fs");
 const http = require("http"); //We need to create an endpoint, so we're creating a "server"
+const port = process.env.PORT;
 
 const githubDictionary = {
   //Nothing to see here :)
@@ -93,9 +94,9 @@ const temporalServer = http.createServer((req, res) => {
   }
 });
 
-temporalServer.listen(3000, () => {
+temporalServer.listen(port, () => {
   //Start the server
-  console.log("Servidor HTTP escuchando en el puerto 3000");
+  console.log("Servidor HTTP escuchando en el puerto " + port);
 });
 
 const meses = [

@@ -18,6 +18,7 @@ En órden para funcionar, el proyecto requiere de ciertas variables de entorno d
 - LIST_OF_CHORES : El ID de la lista de "Lista de Tareas"
 - LIST_OF_IN_PROGRESS : El ID de la lista de "En Proceso"
 - LIST_OF_REVIEW : El ID de la lista de "Review"
+- PORT: El puerto en el que se va a abrir
 
 # Ejecutar de manera local
 
