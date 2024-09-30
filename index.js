@@ -166,8 +166,12 @@ function checkHour() {
         e.minuto === minute &&
         e.amPm === amPm
       ) {
-        console.log("Hora de mandar el mensaje!");
+        lunaChannel.send(e.introMessage);
         fetchData();
+        lunaChannel.send(e.firstQuestion);
+        lunaChannel.send(e.secondQuestion);
+        lunaChannel.send(e.thirdQuestion);
+        lunaChannel.send(e.outroMessage);
       }
     });
   });
@@ -231,7 +235,6 @@ async function fetchData() {
           " tarjetas listas"
       );
     });
-    //TODO: Luna DSU messages & Total cards done this week
   } catch (e) {
     console.error(e);
   }
