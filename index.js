@@ -71,10 +71,12 @@ const temporalServer = http.createServer((req, res) => {
             //Transform the dictionary on an array for iterating it. Then pick the value
             ([key]) => key === action
           )?.[1];
-          messageToSend =
-            messageToSend +
-            " " +
-            githubDictionaryPullRequestReview[webhookEvent.review.state];
+          if (action === "submitted") {
+            messageToSend =
+              messageToSend +
+              " " +
+              githubDictionaryPullRequestReview[webhookEvent.review.state];
+          }
           currentThread.send(
             //Message itself
             "ACTUALIZACIÓN! El PR actual " +
