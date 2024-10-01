@@ -37,6 +37,9 @@ const githubDictionaryPullRequestReview = {
 
 const temporalServer = http.createServer((req, res) => {
   //The server itself
+  if (req.url === "/") {
+    res.send("Luna-Chan Operativa");
+  }
   if (req.method === "POST" && req.url === "/github-webhook") {
     //Check if the endpoint is the correct one
     let body = "";
