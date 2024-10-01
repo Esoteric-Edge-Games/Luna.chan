@@ -39,8 +39,7 @@ const temporalServer = http.createServer((req, res) => {
   //The server itself
   if (req.url === "/") {
     res.end("Luna-Chan Operativa");
-  }
-  if (req.method === "POST" && req.url === "/github-webhook") {
+  } else if (req.method === "POST" && req.url === "/github-webhook") {
     //Check if the endpoint is the correct one
     let body = "";
     req.on("data", (chunk) => {
