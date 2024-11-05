@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, GatewayIntentBits } = require("discord.js");
+const { Client, GatewayIntentBits, heading } = require("discord.js");
 const client = new Client({
   //Discord Client
   intents: [
@@ -14,7 +14,7 @@ const client = new Client({
 const fs = require("fs");
 const http = require("http"); //We need to create an endpoint, so we're creating a "server"
 const port = process.env.PORT;
-
+/*
 const githubDictionary = {
   //Nothing to see here :)
   edited: "✏️ Recibió una edición",
@@ -129,7 +129,7 @@ const esotericTeam = {
   "66513c35adf44c7b0ec3023c": "295023905679212557", //Alex
   "6655def75e2e8eb8723a3d5f": "705127114759995494", //Lucas
 };
-
+*/
 client.login(process.env.LUNA_KEY); //Login the client
 
 let lunaChannel; //Initialize the var for global scope
@@ -148,6 +148,75 @@ function startClock() {
   }, 60000);
 }
 
+/*
+async function fetchData() {
+  //Retrieve the data
+  try {
+    const response = await fetch(
+      //Take the data from Trello
+      "https://api.clickup.com/api/v2/team/token/space",
+      {
+        method: "GET",
+        headers: {
+          Authorization: process.env.CLICKUP_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const formatData = await response.json();
+    console.log(formatData);
+    return;
+    const allCards = await response.json(); //JSONify the response
+    const cardCounts = { ...esotericTeam }; //Create a temporary copy of esotericTeam
+    Object.entries(cardCounts).forEach(([key, value]) => {
+      cardCounts[key] = { inProgress: 0, done: 0 };
+      /*
+      Replace the value from "discordId" to "{inProgress:0,done:0}". Example:
+      "6647d802a75b4fbdcc4538dc":{ inProgress: 0, done: 0 }
+      */ /*
+    });
+    allCards.forEach((c) => {
+      //For each Trello card
+      let status = null; //Intialize a "status" var
+      if (
+        c.idList === process.env.LIST_OF_CHORES ||
+        c.idList === process.env.LIST_OF_IN_PROGRESS
+      ) {
+        status = "inProgress"; //If it's assigned and not completed
+      } else if (c.idList === process.env.LIST_OF_REVIEW) {
+        console.log(c);
+        status = "done"; //If it's assigned and waiting for review
+      } else {
+        return; //Early return
+      }
+      const member = Object.keys(esotericTeam).find(
+        //Finds and returns the "part" of esotericTeam which matchs with the Trello card member
+        (trelloid) => trelloid === c.idMembers[0]
+      );
+      cardCounts[member][status] += 1; //Ups by "1" on the "in progress" or "done"
+    });
+    Object.entries(cardCounts).forEach(([key, value], index) => {
+      /*Make "cardCounts" an array for making the loop part easy. Then loop around it*/ /*
+      lunaChannel.send(
+        //This is what Luna will send
+        "<@" +
+          /*
+          Make "esotericTeam" an array for calling the index with the loop. 
+          [1] is for taking the value of the previous object, not the key part
+          */ /*
+          Object.entries(esotericTeam)[index][1] +
+          "> tiene " +
+          value.inProgress +
+          " tarjetas en progreso y " +
+          value.done +
+          " tarjetas listas"
+      );
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+fetchData();*/
 function checkHour() {
   //Check if current time matchs any of DSU.JSON
   let date = new Date();
@@ -180,67 +249,4 @@ function checkHour() {
       }
     });
   });
-}
-
-async function fetchData() {
-  //Retrieve the data
-  try {
-    const response = await fetch(
-      //Take the data from Trello
-      "https://api.trello.com/1/boards/" +
-        process.env.TRELLO_REPO + //ID of workspace
-        "/cards?key=" +
-        process.env.TRELLO_API_KEY + //Trello key
-        "&token=" +
-        process.env.TRELLO_TOKEN // Trello personal token
-    );
-    const allCards = await response.json(); //JSONify the response
-    const cardCounts = { ...esotericTeam }; //Create a temporary copy of esotericTeam
-    Object.entries(cardCounts).forEach(([key, value]) => {
-      cardCounts[key] = { inProgress: 0, done: 0 };
-      /*
-      Replace the value from "discordId" to "{inProgress:0,done:0}". Example:
-      "6647d802a75b4fbdcc4538dc":{ inProgress: 0, done: 0 }
-      */
-    });
-    allCards.forEach((c) => {
-      //For each Trello card
-      let status = null; //Intialize a "status" var
-      if (
-        c.idList === process.env.LIST_OF_CHORES ||
-        c.idList === process.env.LIST_OF_IN_PROGRESS
-      ) {
-        status = "inProgress"; //If it's assigned and not completed
-      } else if (c.idList === process.env.LIST_OF_REVIEW) {
-        console.log(c);
-        status = "done"; //If it's assigned and waiting for review
-      } else {
-        return; //Early return
-      }
-      const member = Object.keys(esotericTeam).find(
-        //Finds and returns the "part" of esotericTeam which matchs with the Trello card member
-        (trelloid) => trelloid === c.idMembers[0]
-      );
-      cardCounts[member][status] += 1; //Ups by "1" on the "in progress" or "done"
-    });
-    Object.entries(cardCounts).forEach(([key, value], index) => {
-      /*Make "cardCounts" an array for making the loop part easy. Then loop around it*/
-      lunaChannel.send(
-        //This is what Luna will send
-        "<@" +
-          /*
-          Make "esotericTeam" an array for calling the index with the loop. 
-          [1] is for taking the value of the previous object, not the key part
-          */
-          Object.entries(esotericTeam)[index][1] +
-          "> tiene " +
-          value.inProgress +
-          " tarjetas en progreso y " +
-          value.done +
-          " tarjetas listas"
-      );
-    });
-  } catch (e) {
-    console.error(e);
-  }
 }
