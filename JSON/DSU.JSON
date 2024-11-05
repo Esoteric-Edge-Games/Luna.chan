@@ -3,7 +3,7 @@
     "fecha": 5,
     "mes": "noviembre",
     "hora": 19,
-    "minuto": 00,
+    "minuto": 0,
     "amPm": "pm",
     "introMessage": "Buenas tardes valiosos miembros de Esoteric. Por problemas técnicos no pudo arrobarlos, así que les recomiendo que desmuteen este canal hasta nuevo aviso para enterarse de las DSU :)",
     "firstQuestion": "Ayer fue el cierre de Sprint, ¿Consideras que vas a poder realizar todas tus tareas?",
@@ -11,11 +11,11 @@
     "thirdQuestion": "¿Cómo va el progreso de tus tareas para esta semana?",
     "outroMessage": "Nos vemos mañana para otra DSU. Recuerden que son todos los días a las 19hs"
   },
-{
+  {
     "fecha": 6,
     "mes": "noviembre",
     "hora": 19,
-    "minuto": 00,
+    "minuto": 0,
     "amPm": "pm",
     "introMessage": "Otro día, otra DSU. Espero que estén todos muy emocionados por responderla, o responderla rápido y seguir con sus tareas",
     "firstQuestion": "¿Cómo va el progreso de tus tarjetas para esta semana?",
@@ -23,11 +23,11 @@
     "thirdQuestion": "¿Pudiste leer el GDD? ¿Tenés alguna sugerencia?",
     "outroMessage": "Y eso es todo por hoy! No bajen los brazos, la deadline parece lejana pero creanme que no lo es"
   },
-{
+  {
     "fecha": 7,
     "mes": "noviembre",
     "hora": 19,
-    "minuto": 00,
+    "minuto": 0,
     "amPm": "pm",
     "introMessage": "Buenas tardes! Llegó el momento del día favorito: Donde todos comparten sus épicos avances y todos nos ponemos contentos viendo como el proyecto sale a flote",
     "firstQuestion": "¿Estas pudiendo progresar en tus tarjetas? ¿Para cuando estimas que se terminan?",
@@ -35,11 +35,11 @@
     "thirdQuestion": "¿Qué tal se sienten respecto a los objetivos? ¿Los inspiran, asustan, motivan?",
     "outroMessage": "Y no se olviden, un proyecto no es más que un conjunto de esfuerzos diarios. Cualquiera puede hacer un jueguito, si lo quiere lo suficiente"
   },
-{
+  {
     "fecha": 8,
     "mes": "noviembre",
     "hora": 19,
-    "minuto": 00,
+    "minuto": 0,
     "amPm": "pm",
     "introMessage": "Llegó Luna, su bot de confianza para las DSU, quien espera que estén teniendo un excelente viernes!",
     "firstQuestion": "¿Como van tus tarjetas? ¿Vas a trabajar o descansar el finde?",
@@ -47,11 +47,11 @@
     "thirdQuestion": "¿Consideras que las cosas se están haciendo bien? (Puede ser tanto proyecto, tecnologías, metodologías). ¿Hay algo que cambiarías?",
     "outroMessage": "Luna se despide para disfrutar el fin de semana. Recuerden enfocarse en un día a la vez, y el proyecto va a ir fantástico"
   },
-{
+  {
     "fecha": 11,
     "mes": "noviembre",
     "hora": 19,
-    "minuto": 00,
+    "minuto": 0,
     "amPm": "pm",
     "introMessage": "¡Nuevo lunes! Hoy tenemos cierre de Sprint, espero que todos hayan terminado todo :)",
     "firstQuestion": "¿Terminaste tus tarjetas?",

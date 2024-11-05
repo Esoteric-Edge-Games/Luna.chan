@@ -34,7 +34,7 @@ const githubDictionaryPullRequestReview = {
     "❌ Fue desaprobado. 🔧 Se volverá a revisar una vez hechos los cambios",
   commented: "💬 Hay nuevos comentarios en la review",
 };
-
+*/
 const temporalServer = http.createServer((req, res) => {
   //The server itself
   if (req.url === "/") {
@@ -117,7 +117,7 @@ const meses = [
   "noviembre",
   "diciembre",
 ];
-
+/*
 const esotericTeam = {
   //TRELLOID : DISCORDID
   "6647d802a75b4fbdcc4538dc": "492729222276579333", //Juanse
@@ -130,6 +130,9 @@ const esotericTeam = {
   "6655def75e2e8eb8723a3d5f": "705127114759995494", //Lucas
 };
 */
+if (!process.env.LUNA_KEY) {
+  console.error("Error: No hay token de Discord");
+}
 client.login(process.env.LUNA_KEY); //Login the client
 
 let lunaChannel; //Initialize the var for global scope
